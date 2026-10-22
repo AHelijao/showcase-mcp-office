@@ -1,4 +1,4 @@
-# MCP Office Machine — showcase
+﻿# MCP Office Machine — showcase
 
 **Portfolio:** [ahelijao.github.io](https://ahelijao.github.io/) · Chapter IV  
 **Private source:** not linked
@@ -46,6 +46,15 @@ Agent UI ──▶ MCP gateway / bridge ──▶ MCP Office server (FastMCP)
 ## Explicitly not in this repo
 
 Server source, org templates, CI secrets, live `k8s` YAML from private clusters.
+
+
+## Full source (private)
+
+Access required. The implementation lives in a **private** repository:
+
+- [mcp-office-machine](https://github.com/AHelijao/mcp-office-machine)
+
+Without collaborator access, GitHub will show **404**. To request access: email [helijao.andriamandranto@gmail.com](mailto:helijao.andriamandranto@gmail.com), message on [LinkedIn](https://linkedin.com/in/helijaoa), or open an issue on **this** showcase repo — I’ll grant access case by case.
 
 ---
 
