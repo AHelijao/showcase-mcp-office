@@ -1,35 +1,52 @@
 # MCP Office Machine — showcase
 
-**Portfolio:** [ahelijao.github.io](https://ahelijao.github.io/) · Chapter IV
+**Portfolio:** [ahelijao.github.io](https://ahelijao.github.io/) · Chapter IV  
+**Private source:** not linked
 
-> Sanitized public view. No internal branding, templates, or deployment manifests from private systems.
+> Docs-only public view. No internal templates, brand kits, or cluster manifests.
 
-## What it is
+## Elevator
 
-An **MCP (Model Context Protocol) server** that turns an agent chat into deliverables: generate **PowerPoint / Word / Excel**, store artifacts, return **signed download URLs**. Containerized and deployable next to an agent platform.
+An **MCP server** that lets an agent **produce Office documents** (PPT / Word / Excel), store them in object storage, and return a **presigned URL** — chat that ships a deliverable.
 
-## Problem
+## Need
 
-Chat-only agents talk; operators still need documents. One-off scripts don’t scale. You want reusable tools the model can call, with access control and cloud storage — not paste-into-slides.
+| Pain | Response |
+|------|----------|
+| Agents that only talk | Tools for pptx / docx / xlsx generation |
+| Scripts that don’t scale | One MCP surface, extend with Python modules |
+| Files trapped on a pod | Upload to S3-compatible storage + signed links |
+| Wire into existing agent UIs | Sit behind an MCP→HTTP bridge next to the agent platform |
 
-## What this shows
+## Architecture (sanitized)
 
-- FastMCP tool surface for document generation
-- Agent → tool → object storage → presigned URL path
-- Container + orchestration mindset (Docker / Kubernetes)
+```text
+Agent UI ──▶ MCP gateway / bridge ──▶ MCP Office server (FastMCP)
+                                            │
+                                            ├─ build pptx/docx/xlsx
+                                            ▼
+                                         Object storage
+                                            │
+                                            ▼
+                                      Presigned URL ──▶ user
+```
+
+**Extensibility:** new document tools = new Python modules; infra stays stable.
+
+## What this demonstrates
+
+- MCP / FastMCP as an integration pattern, not a demo toy
+- Least-privilege cloud identity patterns for storage access
+- Container-ready service for Kubernetes-style deploys
 
 ## Stack
 
-`Python` · `FastMCP` · `python-pptx` / docx / xlsx · `Docker` · `Kubernetes` · `S3` (+ IRSA-style cloud identity patterns)
+`Python 3.12+` · `FastMCP` · `python-pptx` · `python-docx` · `openpyxl` · `boto3` · `Docker` · `Kubernetes` / EKS · S3 + presigned URLs
 
-## What’s intentionally omitted
+## Explicitly not in this repo
 
-Internal document templates, org-specific styling, CI secrets, and live cluster configs.
-
-## Status
-
-Capability showcase. Full server code stays private.
+Server source, org templates, CI secrets, live `k8s` YAML from private clusters.
 
 ---
 
-*Helijao Andriamandranto — software & cybersecurity*
+← back to [portfolio](https://ahelijao.github.io/) · Helijao Andriamandranto
